@@ -1,3 +1,6 @@
+![image](https://github.com/user-attachments/assets/115cad11-24d1-40eb-9e5c-8c8b5d0f4d39)
+
+
 # 🔍 Lyarinet Network Scanner Dashboard
 
 This project provides a web-based dashboard to run network scans and view the results in a clean, responsive interface. You can now select which network interface to scan directly from the browser.
