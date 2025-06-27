@@ -8,29 +8,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --bg-dark: #0D1117;
-      --bg-surface: #161B22;
-      --border-color: rgba(255, 255, 255, 0.1);
-      --text-primary: #c9d1d9;
-      --text-secondary: #8b949e;
-      --accent-primary: #58A6FF;
-      --accent-secondary: #F778BA;
-      --accent-glow: rgba(88, 166, 255, 0.3);
-      --success: #3FB950;
-      --warning: #D29922;
-      --error: #F85149;
+      --bg-dark: #0D1117; --bg-surface: #161B22; --border-color: rgba(255, 255, 255, 0.1); --text-primary: #c9d1d9; --text-secondary: #8b949e; --accent-primary: #58A6FF; --accent-secondary: #F778BA; --accent-glow: rgba(88, 166, 255, 0.3); --success: #3FB950; --warning: #D29922; --error: #F85149;
     }
-    body {
-      font-family: 'Roboto', sans-serif;
-      background-color: var(--bg-dark);
-      background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.04) 1px, transparent 0);
-      background-size: 25px 25px;
-      margin: 0;
-      padding: 2rem;
-      color: var(--text-primary);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+    body { font-family: 'Roboto', sans-serif; background-color: var(--bg-dark); background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.04) 1px, transparent 0); background-size: 25px 25px; margin: 0; padding: 2rem; color: var(--text-primary); line-height: 1.6; overflow-x: hidden; }
     .container { max-width: 1400px; margin: auto; animation: fadeIn 0.5s ease-out; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes rowFadeIn { from { opacity: 0; transform: translateX(-15px); } to { opacity: 1; transform: translateX(0); } }
@@ -67,12 +47,13 @@
     .status-offline { background-color: var(--error); color: var(--error); }
     .status-unknown { background-color: var(--warning); color: var(--warning); }
     footer { text-align: center; margin-top: 2rem; font-size: 0.9rem; color: var(--text-secondary); padding: 1.5rem; border-top: 1px solid var(--border-color); }
-    .last-updated { display: flex; justify-content: center; align-items: center; gap: 1rem; margin-top: 1rem; }
+    .scan-controls { display: flex; justify-content: center; align-items: center; gap: 1rem; margin-top: 1rem; }
     .refresh-btn { background: var(--accent-primary); color: var(--bg-dark); border: none; padding: 0.6rem 1.2rem; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s ease; font-weight: 700; font-family: 'Exo 2', sans-serif; }
     .refresh-btn:hover { transform: translateY(-2px); box-shadow: 0 0 20px var(--accent-glow); }
     .refresh-btn:active { transform: translateY(0); }
     .refresh-btn:disabled { opacity: 0.6; cursor: not-allowed; background: var(--bg-surface); color: var(--text-secondary); }
     .refresh-btn .fa-spin { animation: fa-spin 1s linear infinite; }
+    #interfaceSelector { background: var(--bg-surface); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.6rem 1rem; font-family: 'Roboto', sans-serif; font-size: 0.9rem; -webkit-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23c9d1d9' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 0.7rem center; background-size: 1em; }
     .empty-state, .error-state, .no-results-state { text-align: center; padding: 4rem; color: var(--text-secondary); }
     .empty-state i, .error-state i, .no-results-state i { font-size: 3.5rem; margin-bottom: 1rem; display: block; }
     .empty-state i { color: var(--accent-primary); }
@@ -111,22 +92,23 @@
     </table>
     <footer>
       <div>Dashboard powered by Asifagaria all rights reserved</div>
-      <div class="last-updated">
-        <button class="refresh-btn" id="refreshBtn"><i class="fas fa-sync-alt"></i><span>Refresh</span></button>
-        <span id="lastUpdated">Last updated: Never</span>
+      <div class="scan-controls">
+        <label for="interfaceSelector" style="font-family: 'Exo 2', sans-serif;">Scan Interface:</label>
+        <select id="interfaceSelector"></select>
+        <button class="refresh-btn" id="refreshBtn"><i class="fas fa-sync-alt"></i><span>Scan Now</span></button>
       </div>
+      <div id="lastUpdated" style="margin-top: 1rem;">Last updated: Never</div>
     </footer>
   </div>
   <script>
+    // --- UTILITY FUNCTIONS ---
+    function getDeviceTypeStyle(deviceType) { /* ... same as before ... */ }
+    function detectDeviceType(entry) { /* ... same as before ... */ }
+    function formatMAC(mac) { /* ... same as before ... */ }
+    // (Collapsed for brevity, no changes were made to these functions)
     function getDeviceTypeStyle(deviceType) {
       const styles = {
-        'router':   { icon: 'fa-router',       bgColor: '#8B5CF6', textColor: '#FFFFFF' },
-        'server':   { icon: 'fa-server',       bgColor: '#F97316', textColor: '#FFFFFF' },
-        'desktop':  { icon: 'fa-desktop',      bgColor: '#22C55E', textColor: '#FFFFFF' },
-        'mobile':   { icon: 'fa-mobile-alt',   bgColor: '#3B82F6', textColor: '#FFFFFF' },
-        'iot':      { icon: 'fa-microchip',    bgColor: '#EC4899', textColor: '#FFFFFF' },
-        'generic':  { icon: 'fa-cube',         bgColor: '#64748B', textColor: '#FFFFFF' },
-        'unknown':  { icon: 'fa-question',     bgColor: '#475569', textColor: '#FFFFFF' },
+        'router':   { icon: 'fa-router',       bgColor: '#8B5CF6', textColor: '#FFFFFF' }, 'server':   { icon: 'fa-server',       bgColor: '#F97316', textColor: '#FFFFFF' }, 'desktop':  { icon: 'fa-desktop',      bgColor: '#22C55E', textColor: '#FFFFFF' }, 'mobile':   { icon: 'fa-mobile-alt',   bgColor: '#3B82F6', textColor: '#FFFFFF' }, 'iot':      { icon: 'fa-microchip',    bgColor: '#EC4899', textColor: '#FFFFFF' }, 'generic':  { icon: 'fa-cube',         bgColor: '#64748B', textColor: '#FFFFFF' }, 'unknown':  { icon: 'fa-question',     bgColor: '#475569', textColor: '#FFFFFF' },
       };
       return styles[deviceType] || styles['unknown'];
     }
@@ -147,6 +129,34 @@
       if (cleaned.length !== 12) return mac; 
       return cleaned.match(/.{1,2}/g).join(':');
     }
+
+    // --- NEW: FUNCTION TO LOAD INTERFACES ---
+    function loadInterfaces() {
+        const selector = document.getElementById('interfaceSelector');
+        fetch('/api/interfaces')
+            .then(response => {
+                if (!response.ok) throw new Error('Failed to load interfaces');
+                return response.json();
+            })
+            .then(interfaces => {
+                selector.innerHTML = ''; // Clear existing options
+                interfaces.forEach(iface => {
+                    const option = document.createElement('option');
+                    option.value = iface;
+                    option.textContent = iface;
+                    if (iface === 'all') {
+                        option.selected = true; // Make 'all' the default
+                    }
+                    selector.appendChild(option);
+                });
+            })
+            .catch(err => {
+                console.error(err);
+                selector.innerHTML = '<option value="">Error</option>';
+            });
+    }
+
+    // --- MODIFIED: FUNCTION TO LOAD DATA ---
     function loadData() {
       const tbody = document.querySelector('#scanTable tbody');
       const statsContainer = document.querySelector('#statsContainer');
@@ -160,7 +170,7 @@
         .then(data => {
           lastUpdatedSpan.textContent = `Last updated: ${new Date().toLocaleTimeString()}`;
           tbody.innerHTML = `<tr id="noResultsRow" class="hidden"><td colspan="7" class="no-results-state"><i class="fas fa-search"></i><h3>No Matching Devices</h3><p>Your search returned no results.</p></td></tr>`;
-          if (!data || data.length === 0) {
+          if (!Array.isArray(data) || data.length === 0) {
             tbody.insertAdjacentHTML('afterbegin', `<tr><td colspan="7" class="empty-state"><i class="fas fa-search-minus"></i><h3>No Devices Found</h3><p>Run a new scan to populate this table.</p></td></tr>`);
             statsContainer.innerHTML = '';
             return;
@@ -188,11 +198,12 @@
           tbody.innerHTML = `<tr><td colspan="7" class="error-state"><i class="fas fa-exclamation-triangle"></i><h3>Error Loading Results</h3><p>${err.message}. Check the console and if scan_results.json exists.</p></td></tr>`;
         });
     }
+
+    // --- MODIFIED: SEARCH FILTERING ---
     function filterTable() {
         const query = document.getElementById('searchInput').value.toLowerCase();
         const rows = document.querySelectorAll('#scanTable tbody tr.data-row');
         const noResultsRow = document.getElementById('noResultsRow');
-        const noResultsText = noResultsRow.querySelector('p');
         let visibleCount = 0;
         rows.forEach(row => {
             const rowText = row.textContent.toLowerCase();
@@ -205,44 +216,69 @@
         });
         if (visibleCount === 0 && rows.length > 0) {
             noResultsRow.classList.remove('hidden');
-            noResultsText.textContent = query ? `Your search for "${query}" returned no results.` : `Your search returned no results.`;
         } else {
             noResultsRow.classList.add('hidden');
         }
     }
-    document.addEventListener('DOMContentLoaded', loadData);
+
+    // --- EVENT LISTENERS ---
+    document.addEventListener('DOMContentLoaded', () => {
+        loadInterfaces(); // Load interfaces when the page is ready
+        loadData(); // Load initial data
+    });
+
     document.getElementById('searchInput').addEventListener('keyup', filterTable);
+
+    // --- MODIFIED: REFRESH BUTTON CLICK HANDLER ---
     document.getElementById('refreshBtn').addEventListener('click', () => {
       const btn = document.getElementById('refreshBtn');
       const icon = btn.querySelector('i');
+      const selectedInterface = document.getElementById('interfaceSelector').value;
+
+      if (!selectedInterface) {
+          alert("Please select a valid interface.");
+          return;
+      }
+
       icon.classList.remove('fa-sync-alt');
       icon.classList.add('fa-spinner', 'fa-spin');
       btn.disabled = true;
       btn.querySelector('span').textContent = 'Scanning...';
-      fetch('/api/scan', { method: 'POST' })
+      
+      fetch('/api/scan', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ interface: selectedInterface }) // Send selected interface
+      })
         .then(response => {
             if (!response.ok) {
-                return response.json().then(err => { throw new Error(err.details || `Scan trigger failed with status: ${response.status}`) });
+                return response.json().then(err => { throw new Error(err.details || err.message || `Scan trigger failed with status: ${response.status}`) });
             }
             return response.json();
         })
         .then(data => {
             console.log('Scan API response:', data.message);
-            loadData(); 
+            // Wait a moment for the file to be written before reloading data
+            setTimeout(loadData, 1000); 
         })
         .catch(err => {
             console.error('Failed to trigger scan:', err);
             alert('Error starting scan: ' + err.message);
         })
         .finally(() => {
+            // Add a small delay to make the "Scanning..." state visible
             setTimeout(() => {
                 icon.classList.remove('fa-spinner', 'fa-spin');
                 icon.classList.add('fa-sync-alt');
                 btn.disabled = false;
-                btn.querySelector('span').textContent = 'Refresh';
+                btn.querySelector('span').textContent = 'Scan Now';
             }, 1500);
         });
     });
+
+    // Auto-refresh data every 60 seconds
     setInterval(loadData, 60000);
   </script>
 </body>
