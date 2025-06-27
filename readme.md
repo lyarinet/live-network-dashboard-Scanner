@@ -30,7 +30,7 @@ Make sure your Bash scanner script outputs `scan_results.json` in the same folde
 
 ### 2. Open in your browser:
 ```bash
-firefox scan_results_viewer.html
+firefox index.html
 ```
 Or with any modern browser: Chrome, Edge, Brave, etc.
 
