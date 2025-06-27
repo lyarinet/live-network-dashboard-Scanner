@@ -1,4 +1,5 @@
-![image](https://github.com/user-attachments/assets/115cad11-24d1-40eb-9e5c-8c8b5d0f4d39)
+![image](https://github.com/user-attachments/assets/b3385296-b6fa-4340-be55-dea59b3848a5)
+
 
 
 # 🔍 Lyarinet Network Scanner Dashboard
